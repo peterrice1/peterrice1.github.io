@@ -218,33 +218,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>qbs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"QB - Sheet1.csv"</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>qb1 <span class="ot">&lt;-</span> qbs <span class="sc">%&gt;%</span> <span class="fu">filter</span>( G <span class="sc">&gt;</span> <span class="dv">2</span>, <span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span> <span class="sc">&gt;</span><span class="dv">39</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>qb1 <span class="ot">&lt;-</span> qbs <span class="sc">%&gt;%</span> <span class="fu">filter</span>( G <span class="sc">&gt;</span> <span class="dv">4</span>, <span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span> <span class="sc">&gt;</span><span class="dv">43</span>, TD<span class="sc">&gt;</span> <span class="dv">3</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>qb2 <span class="ot">&lt;-</span> qb1 <span class="sc">%&gt;%</span> <span class="fu">top_n</span>(<span class="dv">4</span>, TD) </span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">data=</span>qb1, <span class="fu">aes</span>(<span class="at">x=</span>TD, <span class="at">y=</span><span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span>, <span class="at">color=</span><span class="st">"red"</span>)) <span class="sc">+</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">data=</span>qb1, <span class="fu">aes</span>(<span class="at">x=</span>TD, <span class="at">y=</span><span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">data=</span>qb1, <span class="fu">aes</span>(<span class="at">x=</span>TD, <span class="at">y=</span><span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span>), <span class="at">method=</span><span class="st">"lm"</span>) <span class="sc">+</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">data=</span>qb1, <span class="fu">aes</span>(<span class="at">x=</span>TD, <span class="at">y=</span><span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span>, <span class="at">color=</span><span class="st">"blue"</span>))<span class="sc">+</span> <span class="fu">geom_text_repel</span>(<span class="at">data=</span>qb2, <span class="fu">aes</span>(<span class="at">x=</span>TD, <span class="at">y=</span><span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span>, <span class="at">label=</span>Player))<span class="sc">+</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Touchdowns Thrown"</span>, <span class="at">y =</span> <span class="st">"Completion Percentage"</span>,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="at">title =</span> <span class="st">"Best NFL Defenses"</span>,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="at">subtitle =</span> <span class="st">"The best defenses can consistently limit touchdowns and sack the quarterback"</span>,</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">"Source: Football-Reference.com | By Peter Rice"</span>, <span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">color =</span> <span class="st">"black"</span>) </span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>russ <span class="ot">&lt;-</span> qb1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Player <span class="sc">==</span> <span class="st">"Russell Wilson"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">data=</span>qb1, <span class="fu">aes</span>(<span class="at">x=</span>TD, <span class="at">y=</span><span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span>, <span class="at">color=</span><span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">data=</span>qb1, <span class="fu">aes</span>(<span class="at">x=</span>TD, <span class="at">y=</span><span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data=</span>russ, <span class="fu">aes</span>(<span class="at">x=</span>TD, <span class="at">y=</span><span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span>, <span class="at">label=</span>Player))<span class="sc">+</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">data=</span>qb1, <span class="fu">aes</span>(<span class="at">x=</span>TD, <span class="at">y=</span><span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span>), <span class="at">method=</span><span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">data=</span>qb1, <span class="fu">aes</span>(<span class="at">x=</span>TD, <span class="at">y=</span><span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span>, <span class="at">color=</span><span class="st">"blue"</span>))<span class="sc">+</span> <span class="fu">geom_text_repel</span>(<span class="at">data=</span>qb2, <span class="fu">aes</span>(<span class="at">x=</span>TD, <span class="at">y=</span><span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span>, <span class="at">label=</span>Player))<span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Touchdowns Thrown"</span>, <span class="at">y =</span> <span class="st">"Completion %"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="at">title =</span> <span class="st">"Best Quarterbacks Through Week 8"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="at">subtitle =</span> <span class="st">"The best defenses can consistently limit touchdowns "</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">"Source: Football-Reference.com | By Peter Rice"</span>, <span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">color =</span> <span class="st">"black"</span>) </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>transition</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>qb3 <span class="ot">&lt;-</span> qb1  <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>qb4 <span class="ot">&lt;-</span> qb1  <span class="sc">%&gt;%</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Player, TD, Int, <span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Player) <span class="sc">%&gt;%</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
@@ -258,9 +262,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Cmp%</span><span class="st">`</span> ) <span class="sc">%&gt;%</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(TD))</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>top10 <span class="ot">&lt;-</span>  qb3 <span class="sc">%&gt;%</span> <span class="fu">top_n</span>(<span class="dv">10</span>, <span class="at">wt=</span> TD)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>russ <span class="ot">&lt;-</span> qb3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Player <span class="sc">==</span> <span class="st">"Russell Wilson"</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>top10plus <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(top10, russ)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>top10 <span class="ot">&lt;-</span>  qb4 <span class="sc">%&gt;%</span> <span class="fu">top_n</span>(<span class="dv">10</span>, <span class="at">wt=</span> TD)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>russ2 <span class="ot">&lt;-</span> qb4 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Player <span class="sc">==</span> <span class="st">"Russell Wilson"</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>top10plus <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(top10, russ2)</span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>top10plus<span class="sc">%&gt;%</span> <span class="fu">gt</span>()<span class="sc">%&gt;%</span> </span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
@@ -322,12 +326,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </details>
 <div class="cell-output-display">
 
-<div id="wqyxkeewpq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="zyirjwpjyz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-:where(#wqyxkeewpq) .gt_table {
+:where(#zyirjwpjyz) .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -352,7 +356,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-:where(#wqyxkeewpq) .gt_heading {
+:where(#zyirjwpjyz) .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -364,7 +368,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-:where(#wqyxkeewpq) .gt_title {
+:where(#zyirjwpjyz) .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -376,7 +380,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-:where(#wqyxkeewpq) .gt_subtitle {
+:where(#zyirjwpjyz) .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -388,13 +392,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-:where(#wqyxkeewpq) .gt_bottom_border {
+:where(#zyirjwpjyz) .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-:where(#wqyxkeewpq) .gt_col_headings {
+:where(#zyirjwpjyz) .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -409,7 +413,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-:where(#wqyxkeewpq) .gt_col_heading {
+:where(#zyirjwpjyz) .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -429,7 +433,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-:where(#wqyxkeewpq) .gt_column_spanner_outer {
+:where(#zyirjwpjyz) .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -441,15 +445,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-:where(#wqyxkeewpq) .gt_column_spanner_outer:first-child {
+:where(#zyirjwpjyz) .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-:where(#wqyxkeewpq) .gt_column_spanner_outer:last-child {
+:where(#zyirjwpjyz) .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-:where(#wqyxkeewpq) .gt_column_spanner {
+:where(#zyirjwpjyz) .gt_column_spanner {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -461,7 +465,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-:where(#wqyxkeewpq) .gt_group_heading {
+:where(#zyirjwpjyz) .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -486,7 +490,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-:where(#wqyxkeewpq) .gt_empty_group_heading {
+:where(#zyirjwpjyz) .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -501,15 +505,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-:where(#wqyxkeewpq) .gt_from_md > :first-child {
+:where(#zyirjwpjyz) .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-:where(#wqyxkeewpq) .gt_from_md > :last-child {
+:where(#zyirjwpjyz) .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-:where(#wqyxkeewpq) .gt_row {
+:where(#zyirjwpjyz) .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -528,7 +532,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-:where(#wqyxkeewpq) .gt_stub {
+:where(#zyirjwpjyz) .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -541,7 +545,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#wqyxkeewpq) .gt_stub_row_group {
+:where(#zyirjwpjyz) .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -555,11 +559,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-:where(#wqyxkeewpq) .gt_row_group_first td {
+:where(#zyirjwpjyz) .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-:where(#wqyxkeewpq) .gt_summary_row {
+:where(#zyirjwpjyz) .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -569,16 +573,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#wqyxkeewpq) .gt_first_summary_row {
+:where(#zyirjwpjyz) .gt_first_summary_row {
   border-top-style: none;
   border-top-color: #D3D3D3;
 }
 
-:where(#wqyxkeewpq) .gt_first_summary_row.thick {
+:where(#zyirjwpjyz) .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-:where(#wqyxkeewpq) .gt_last_summary_row {
+:where(#zyirjwpjyz) .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -588,7 +592,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-:where(#wqyxkeewpq) .gt_grand_summary_row {
+:where(#zyirjwpjyz) .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -598,7 +602,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#wqyxkeewpq) .gt_first_grand_summary_row {
+:where(#zyirjwpjyz) .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -608,11 +612,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-:where(#wqyxkeewpq) .gt_striped {
+:where(#zyirjwpjyz) .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-:where(#wqyxkeewpq) .gt_table_body {
+:where(#zyirjwpjyz) .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -621,7 +625,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-:where(#wqyxkeewpq) .gt_footnotes {
+:where(#zyirjwpjyz) .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -635,7 +639,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-:where(#wqyxkeewpq) .gt_footnote {
+:where(#zyirjwpjyz) .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -644,7 +648,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#wqyxkeewpq) .gt_sourcenotes {
+:where(#zyirjwpjyz) .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -658,7 +662,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-:where(#wqyxkeewpq) .gt_sourcenote {
+:where(#zyirjwpjyz) .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -666,64 +670,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#wqyxkeewpq) .gt_left {
+:where(#zyirjwpjyz) .gt_left {
   text-align: left;
 }
 
-:where(#wqyxkeewpq) .gt_center {
+:where(#zyirjwpjyz) .gt_center {
   text-align: center;
 }
 
-:where(#wqyxkeewpq) .gt_right {
+:where(#zyirjwpjyz) .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-:where(#wqyxkeewpq) .gt_font_normal {
+:where(#zyirjwpjyz) .gt_font_normal {
   font-weight: normal;
 }
 
-:where(#wqyxkeewpq) .gt_font_bold {
+:where(#zyirjwpjyz) .gt_font_bold {
   font-weight: bold;
 }
 
-:where(#wqyxkeewpq) .gt_font_italic {
+:where(#zyirjwpjyz) .gt_font_italic {
   font-style: italic;
 }
 
-:where(#wqyxkeewpq) .gt_super {
+:where(#zyirjwpjyz) .gt_super {
   font-size: 65%;
 }
 
-:where(#wqyxkeewpq) .gt_footnote_marks {
+:where(#zyirjwpjyz) .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-:where(#wqyxkeewpq) .gt_asterisk {
+:where(#zyirjwpjyz) .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-:where(#wqyxkeewpq) .gt_indent_1 {
+:where(#zyirjwpjyz) .gt_indent_1 {
   text-indent: 5px;
 }
 
-:where(#wqyxkeewpq) .gt_indent_2 {
+:where(#zyirjwpjyz) .gt_indent_2 {
   text-indent: 10px;
 }
 
-:where(#wqyxkeewpq) .gt_indent_3 {
+:where(#zyirjwpjyz) .gt_indent_3 {
   text-indent: 15px;
 }
 
-:where(#wqyxkeewpq) .gt_indent_4 {
+:where(#zyirjwpjyz) .gt_indent_4 {
   text-indent: 20px;
 }
 
-:where(#wqyxkeewpq) .gt_indent_5 {
+:where(#zyirjwpjyz) .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -800,7 +804,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>new</p>
+<p>graphic 3</p>
+<p>conclusion</p>
 
 
 
