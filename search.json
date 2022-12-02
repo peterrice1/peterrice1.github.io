@@ -4,7 +4,7 @@
     "href": "posts/giannis-could-be-the-goat/index.html",
     "title": "Giannis is on a path for greatness",
     "section": "",
-    "text": "new"
+    "text": "Code\nlibrary(tidyverse)\nlibrary(rvest)\n\nyears <- 1980:2022\n\nallplayers <- tibble()\n\nfor (i in years){\n\nurl <- paste0(\"https://www.basketball-reference.com/leagues/NBA_\", i, \"_totals.html\")\n\nstats <- url %>% \n  read_html() %>% \n  html_nodes(xpath='//*[@id=\"totals_stats\"]') %>%\n  html_table()\n\nstats <- stats[[1]] %>% filter(Rk != \"Rk\") %>% mutate_at(6:30, as.numeric) %>% mutate(Rk=as.numeric(Rk), Age = as.numeric(Age)) %>% mutate(Season = i) %>% mutate(Player = gsub(\"\\\\*\", \"\", Player))\n\nallplayers <- bind_rows(allplayers, stats)\n\nSys.sleep(2)\n}\n\n\nnew"
   },
   {
     "objectID": "posts/russell-wilson-isnt-living-up-to-hype/index.html",
